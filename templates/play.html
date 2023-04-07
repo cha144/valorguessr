@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Valorant Geoguessr</title>
+</head>
+<style>
+    @font-face {
+    font-family: "ValorantFont";
+    src: url("/static/fonts/ValorantFont.ttf") format("truetype");
+    }
+  body
+  {
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-image: url("/static/img/BlankBackground2.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    font-family: "ValorantFont";
+    text-align: center;
+    font-size: 200px;
+    color: #fa4454;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
+  .counter span {
+  display: inline-block;
+  opacity: 0;
+  animation: fadeIn 1s ease-in-out 1;
+  }
+  @keyframes fadeIn {
+   0% {
+    opacity: 0;
+    filter: blur(10px);
+    transform: scale(1.5);
+    }
+    50% {
+    filter: blur(0px);
+    }
+    100% {
+    opacity: 1;
+    transform: scale(0.5);
+    }
+   }
+   html {
+    box-sizing: border-box;
+    border: 25px solid black;
+    height: 100%;
+    }
+
+   .gameTitle {
+   font-size: 20px;
+   position: absolute;
+   top: 810px;
+   background-color: black;
+   padding: 15px;
+   }
+
+   .map-container {
+   opacity: 0.3;
+   position: absolute;
+   top: 495px;
+   left: 50px;
+   }
+
+   .map-container:hover {
+   opacity: 1;
+   }
+
+   .map-container .map {
+   opacity: 0.3;
+   z-index: 1;
+   }
+
+   .map-container .pointer {
+   z-index: 2;
+   position: absolute;
+   top: -350px;
+   left: 910px;
+   }
+
+   #pointerImg {
+   filter: brightness(1)
+   }
+</style>
+<body>
+    <div>
+        <span class="counter"></span>
+    </div>
+    <div class="map-container">
+        <img id="mapImg" src="" style="width:400px;height:auto;">
+        <div class ="pointer">
+        <img id="pointerImg" src="/static/MapPointer.png" style="width:30px;height:auto;">
+        </div>
+    </div>
+    <div class="gameTitle">
+        <h1>Valorant Geoguessr</h1>
+    </div>
+    <script>
+
+        let imgInvisible = true;
+        let poimgInvisible = true;
+
+        const tick = () => {
+        let e = document.querySelector(".counter");
+            let time = 6; // start countdown from 6 instead of 5
+            const k = setInterval(() => {
+            time--;
+            if (time == 0) {
+              clearInterval(k);
+              e.innerHTML = "<span>Begin</span>";
+              setTimeout(() => {
+
+              const mapFolders = [
+                  "ascent",
+                  "bind",
+                  "breeze",
+                  "haven",
+                  "icebox",
+                  "lotus",
+                  "pearl",
+                  "split"
+              ];
+
+              const ascentMaps = [
+                  "Ascent1.png",
+                  "Ascent2.png",
+                  "Ascent3.png",
+                  "Ascent4.png",
+                  "Ascent5.png",
+                  "Ascent6.png",
+                  "Ascent7.png"
+              ];
+
+              const bindMaps = [
+                  "Bind1.png",
+                  "Bind2.png",
+                  "Bind3.png",
+                  "Bind4.png",
+                  "Bind5.png",
+                  "Bind6.png",
+                  "Bind7.png",
+                  "Bind8.png",
+                  "Bind9.png",
+                  "Bind10.png",
+                  "Bind11.png"
+              ];
+
+              const breezeMaps = [
+                  "Breeze1.png",
+                  "Breeze2.png",
+                  "Breeze3.png",
+                  "Breeze4.png",
+                  "Breeze5.png",
+                  "Breeze6.png",
+                  "Breeze7.png",
+                  "Breeze8.png",
+                  "Breeze9.png",
+                  "Breeze10.png",
+                  "Breeze11.png"
+              ];
+
+              const havenMaps = [
+                  "Haven1.png",
+                  "Haven2.png",
+                  "Haven3.png",
+                  "Haven4.png",
+                  "Haven5.png",
+                  "Haven6.png",
+                  "Haven7.png",
+                  "Haven8.png"
+              ];
+
+              const iceboxMaps = [
+                  "Icebox1.png",
+                  "Icebox2.png",
+                  "Icebox3.png",
+                  "Icebox4.png",
+                  "Icebox5.png",
+                  "Icebox6.png",
+                  "Icebox7.png",
+                  "Icebox8.png",
+                  "Icebox9.png",
+                  "Icebox10.png"
+              ];
+
+              const lotusMaps = [
+                  "Lotus1.png",
+                  "Lotus2.png",
+                  "Lotus3.png",
+                  "Lotus4.png",
+                  "Lotus5.png",
+                  "Lotus6.png",
+                  "Lotus7.png",
+                  "Lotus8.png",
+                  "Lotus9.png",
+              ];
+
+              const pearlMaps = [
+                  "Pearl1.png",
+                  "Pearl2.png",
+                  "Pearl3.png",
+                  "Pearl4.png",
+                  "Pearl5.png",
+                  "Pearl6.png",
+                  "Pearl7.png",
+                  "Pearl8.png",
+                  "Pearl9.png",
+                  "Pearl10.png"
+              ];
+
+              const splitMaps = [
+                  "Split1.png",
+                  "Split2.png",
+                  "Split3.png",
+                  "Split4.png",
+                  "Split5.png",
+                  "Split6.png",
+                  "Split7.png",
+                  "Split8.png",
+                  "Split9.png",
+                  "Split10.png",
+                  "Split11.png"
+              ];
+
+              const randomFolder = Math.floor(Math.random() * mapFolders.length);
+              const randommapFolder = mapFolders[randomFolder];
+              let randommapImage;
+
+              if (randommapFolder == "ascent"){
+              console.log("ascent");
+              const randomImage = Math.floor(Math.random() * ascentMaps.length);
+              randommapImage = ascentMaps[randomImage];
+              }
+
+              if (randommapFolder == "bind"){
+              console.log("bind");
+              const randomImage = Math.floor(Math.random() * bindMaps.length);
+              randommapImage = bindMaps[randomImage];
+              }
+
+              if (randommapFolder == "breeze"){
+              console.log("breeze");
+              const randomImage = Math.floor(Math.random() * breezeMaps.length);
+              randommapImage = breezeMaps[randomImage];
+              }
+
+              if (randommapFolder == "haven"){
+              console.log("haven");
+              const randomImage = Math.floor(Math.random() * havenMaps.length);
+              randommapImage = havenMaps[randomImage];
+              }
+
+              if (randommapFolder == "icebox"){
+              console.log("icebox");
+              const randomImage = Math.floor(Math.random() * iceboxMaps.length);
+              randommapImage = iceboxMaps[randomImage];
+              }
+
+              if (randommapFolder == "lotus"){
+              console.log("lotus");
+              const randomImage = Math.floor(Math.random() * lotusMaps.length);
+              randommapImage = lotusMaps[randomImage];
+              }
+
+              if (randommapFolder == "pearl"){
+              console.log("pearl");
+              const randomImage = Math.floor(Math.random() * pearlMaps.length);
+              randommapImage = pearlMaps[randomImage];
+              }
+
+              if (randommapFolder == "split"){
+              console.log("split");
+              const randomImage = Math.floor(Math.random() * splitMaps.length);
+              randommapImage = splitMaps[randomImage];
+              }
+
+              console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
+              document.body.style.backgroundImage = `url('/static/locations/${randommapFolder}/${randommapImage}')`;
+              imgInvisible = false;
+              toggleImage();
+
+              mapImg.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+
+              }, 1000);
+            } else {
+              e.innerHTML = `<span>${time}</span>`;
+            }
+          }, 1000);
+        };
+        tick();
+
+        var pointerImage = document.getElementById('pointerImg');
+
+        function toggleImage() {
+             const image = document.getElementById('mapImg');
+
+             if (imgInvisible) {
+                image.style.display = 'none';
+              }
+             else {
+                image.style.display = 'block';
+              }
+              imgInvisible = !imgInvisible;
+            }
+
+        function showPointer() {
+
+             const poImage = document.getElementById('pointerImg');
+
+             if (poimgInvisible) {
+                poImage.style.display = 'none';
+              }
+             else {
+                poImage.style.display = 'block';
+              }
+              poimgInvisible = !poimgInvisible;
+            }
+
+        window.onload = () => {
+            toggleImage();
+            showPointer();
+        };
+
+        var mapImage = document.getElementById('mapImg');
+
+        mapImage.addEventListener('click', function(event) {
+            console.log("clicked");
+
+            poimgInvisible = false;
+            showPointer();
+            
+            var x = event.pageX - mapImage.offsetLeft;
+            var y = event.pageY - mapImage.offsetTop;
+
+            console.log(pointerImage);
+            console.log(x);
+            console.log(y);
+
+            pointerImage.style.position = "absolute";
+
+            pointerImage.style.left = x - 975 + 'px';
+            pointerImage.style.top = y -170 + 'px';
+            });
+
+    </script>
+</body>
+</html>
