@@ -134,20 +134,6 @@
                   "Ascent7.png"
               ];
 
-              const bindMaps = [
-                  "Bind1.png",
-                  "Bind2.png",
-                  "Bind3.png",
-                  "Bind4.png",
-                  "Bind5.png",
-                  "Bind6.png",
-                  "Bind7.png",
-                  "Bind8.png",
-                  "Bind9.png",
-                  "Bind10.png",
-                  "Bind11.png"
-              ];
-
               const breezeMaps = [
                   "Breeze1.png",
                   "Breeze2.png",
@@ -235,12 +221,6 @@
               randommapImage = ascentMaps[randomImage];
               }
 
-              if (randommapFolder == "bind"){
-              console.log("bind");
-              const randomImage = Math.floor(Math.random() * bindMaps.length);
-              randommapImage = bindMaps[randomImage];
-              }
-
               if (randommapFolder == "breeze"){
               console.log("breeze");
               const randomImage = Math.floor(Math.random() * breezeMaps.length);
@@ -278,11 +258,11 @@
               }
 
               console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
-              document.body.style.backgroundImage = `url('/static/locations/ascent/Ascent7.png')`;
+              document.body.style.backgroundImage = `url('/static/locations/split/Split11.png')`;
               imgInvisible = false;
               toggleImage();
 
-              mapImg.setAttribute('src', `/static/maps/ascent.png`);
+              mapImg.setAttribute('src', `/static/maps/split.png`);
 
               }, 1000);
             } else {
