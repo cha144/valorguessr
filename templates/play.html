@@ -258,11 +258,15 @@
               }
 
               console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
-              document.body.style.backgroundImage = `url('/static/locations/split/Split11.png')`;
+              document.body.style.backgroundImage = `url('/static/locations/${randommapFolder}/${randommapImage}')`;
               imgInvisible = false;
               toggleImage();
 
-              mapImg.setAttribute('src', `/static/maps/split.png`);
+              mapImg.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+
+              const removalindex = randommapFolder.indexOf(randommapImage);
+              randommapFolder.splice(removalindex, 1);
+
 
               }, 1000);
             } else {
