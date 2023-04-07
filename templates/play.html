@@ -94,6 +94,27 @@
    padding: 15px;
    }
 
+   .lockinButton {
+        background-color: #000;
+        border: none;
+        color: white;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 30px;
+        margin: 4px 2px;
+        border-radius: 10px;
+        font-family: "ValorantFont";
+        position: absolute;
+   }
+
+   #lockIn {
+        background-color: #000;
+        font-size: 30px;
+        font-family: "ValorantFont";
+        color: #fa4454;
+   }
+
+
 </style>
 <body>
     <div>
@@ -110,6 +131,9 @@
     </div>
     <div class="gameTitle">
         <h1>Valorant Geoguessr</h1>
+    </div>
+    <div class="lockinButton">
+        <button id="lockIn">Lock in</button>
     </div>
     <script>
         let imgInvisible = true;
