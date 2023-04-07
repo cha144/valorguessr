@@ -51,9 +51,9 @@
     }
 
    .gameTitle {
-   font-size: 20px;
+   font-size: 12px;
    position: absolute;
-   top: 810px;
+   top: 835px;
    background-color: black;
    padding: 15px;
    }
@@ -84,6 +84,16 @@
    #pointerImg {
    filter: brightness(1)
    }
+
+   .timer-container {
+   font-size: 25px;
+   position: absolute;
+   top: 25px;
+   right: 75px;
+   background-color: black;
+   padding: 15px;
+   }
+
 </style>
 <body>
     <div>
@@ -95,13 +105,28 @@
         <img id="pointerImg" src="/static/MapPointer.png" style="width:30px;height:auto;">
         </div>
     </div>
+    <div class ="timer-container">
+        <h1>Time: <span id="timer">15</span></h1>
+    </div>
     <div class="gameTitle">
         <h1>Valorant Geoguessr</h1>
     </div>
     <script>
-
         let imgInvisible = true;
         let poimgInvisible = true;
+
+        function startTimer(duration) {
+        var timer = document.getElementById("timer");
+        var countdown = setInterval(function() {
+            duration--;
+            timer.innerHTML = duration;
+            if (duration <=0) {
+                clearInterval(countdown);
+                timer.innerHTML = "Time's up!";
+            }
+        }, 1000);
+            return countdown;
+        }
 
         const tick = () => {
         let e = document.querySelector(".counter");
@@ -115,7 +140,6 @@
 
               const mapFolders = [
                   "ascent",
-                  "bind",
                   "breeze",
                   "haven",
                   "icebox",
@@ -214,47 +238,62 @@
               const randomFolder = Math.floor(Math.random() * mapFolders.length);
               const randommapFolder = mapFolders[randomFolder];
               let randommapImage;
+              let index;
 
               if (randommapFolder == "ascent"){
               console.log("ascent");
               const randomImage = Math.floor(Math.random() * ascentMaps.length);
               randommapImage = ascentMaps[randomImage];
+              index = ascentMaps.indexOf(randomImage, 1);
+              ascentMaps.splice(index, 1);
               }
 
               if (randommapFolder == "breeze"){
               console.log("breeze");
               const randomImage = Math.floor(Math.random() * breezeMaps.length);
               randommapImage = breezeMaps[randomImage];
+              index = breezeMaps.indexOf(randomImage, 1);
+              breezeMaps.splice(index, 1);
               }
 
               if (randommapFolder == "haven"){
               console.log("haven");
               const randomImage = Math.floor(Math.random() * havenMaps.length);
               randommapImage = havenMaps[randomImage];
+              index = havenMaps.indexOf(randomImage, 1);
+              havenMaps.splice(index, 1);
               }
 
               if (randommapFolder == "icebox"){
               console.log("icebox");
               const randomImage = Math.floor(Math.random() * iceboxMaps.length);
               randommapImage = iceboxMaps[randomImage];
+              index = iceboxMaps.indexOf(randomImage, 1);
+              iceboxMaps.splice(index, 1);
               }
 
               if (randommapFolder == "lotus"){
               console.log("lotus");
               const randomImage = Math.floor(Math.random() * lotusMaps.length);
               randommapImage = lotusMaps[randomImage];
+              index = lotusMaps.indexOf(randomImage, 1);
+              lotusMaps.splice(index, 1);
               }
 
               if (randommapFolder == "pearl"){
               console.log("pearl");
               const randomImage = Math.floor(Math.random() * pearlMaps.length);
               randommapImage = pearlMaps[randomImage];
+              index = pearlMaps.indexOf(randomImage, 1);
+              pearlMaps.splice(index, 1);
               }
 
               if (randommapFolder == "split"){
               console.log("split");
               const randomImage = Math.floor(Math.random() * splitMaps.length);
               randommapImage = splitMaps[randomImage];
+              index = splitMaps.indexOf(randomImage, 1);
+              splitMaps.splice(index, 1);
               }
 
               console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
@@ -264,8 +303,9 @@
 
               mapImg.setAttribute('src', `/static/maps/${randommapFolder}.png`);
 
-              const removalindex = randommapFolder.indexOf(randommapImage);
-              randommapFolder.splice(removalindex, 1);
+              var duration = 15;
+              var countdown = startTimer(duration);
+
 
 
               }, 1000);
@@ -280,12 +320,17 @@
 
         function toggleImage() {
              const image = document.getElementById('mapImg');
+             const timerText = document.querySelector(".timer-container");
 
              if (imgInvisible) {
                 image.style.display = 'none';
+                timer.style.display = 'none';
+                timerText.style.display = 'none';
               }
              else {
                 image.style.display = 'block';
+                timer.style.display = 'block';
+                timerText.style.display = 'block';
               }
               imgInvisible = !imgInvisible;
             }
@@ -326,9 +371,8 @@
             pointerImage.style.position = "absolute";
 
             pointerImage.style.left = x - 975 + 'px';
-            pointerImage.style.top = y -170 + 'px';
+            pointerImage.style.top = y - 170 + 'px';
             });
-
     </script>
 </body>
 </html>
