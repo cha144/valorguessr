@@ -169,6 +169,7 @@
         <img id ="redpointerImg" src="/static/RedMapPointer.png" style="width:18px;height:auto;">
     </div>
     <script src="/static/mapLocations.js"></script>
+    <script src="/static/resultmapLocations.js"></script>
     <script>
 
         var lockinButton = document.getElementById("lockIn");
@@ -209,7 +210,6 @@
                   "breeze",
                   "haven",
                   "icebox",
-                  "lotus",
                   "pearl",
                   "split"
               ];
@@ -480,8 +480,14 @@
             scoreText.innerHTML = `Total Score: ${totalPoints}`;
             lockinButton.disabled = true;
 
-            redPointerImage.style.left = "500px";
-            redPointerImage.style.top = "100px";
+            const mapPosX = resultLocations[randommapImage].x;
+            const mapPosY = resultLocations[randommapImage].y;
+
+            console.log(mapPosX, mapPosY);
+
+            redPointerImage.style.position = "absolute";
+            redPointerImage.style.left = mapPosX + 'px';
+            redPointerImage.style.top = mapPosY + 'px';
 
             resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
 
