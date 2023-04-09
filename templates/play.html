@@ -85,6 +85,10 @@
    filter: brightness(1)
    }
 
+   #redpointerImage {
+   filter: brightness(1)
+   }
+
    .timer-container {
    font-size: 25px;
    position: absolute;
@@ -161,7 +165,8 @@
     </div>
     <div id="scoreResultPopup">
         <h2>Score: </h2>
-        <img id ="resultMap" src="/static/maps/ascent.png" style="width:300px;height:auto;">
+        <img id = "resultMap" src="/static/maps/ascent.png" style="width:550px;height:auto;">
+        <img id ="redpointerImg" src="/static/RedMapPointer.png" style="width:18px;height:auto;">
     </div>
     <script src="/static/mapLocations.js"></script>
     <script>
@@ -415,7 +420,7 @@
             showPointer();
         };
 
-        var mapImage = document.getElementById('resultMap');
+        var mapImage = document.getElementById('mapImg');
         let chosenX;
         let chosenY;
 
@@ -451,7 +456,7 @@
                 points = 0;
             }
 
-            if (points > 930) {
+            if (points > 900) {
                 points = 1000;
             }
 
@@ -459,6 +464,9 @@
         }
 
         let stoploop = false;
+        let totalPoints = 0;
+
+        var redPointerImage = document.getElementById('redpointerImg');
 
         lockinButton.addEventListener("click", function() {
         points = calculateScore(randommapImage, chosenX, chosenY);
@@ -467,12 +475,20 @@
             popup.classList.toggle('active');
             const scorepopup = document.querySelector('#scoreResultPopup');
 
-            mapImage.src = `/static/maps/${randommapFolder}.png`;
-
             stoploop = true;
-            scoreText.innerHTML = `Score: ${points}`;
+            totalPoints = totalPoints + points;
+            scoreText.innerHTML = `Total Score: ${totalPoints}`;
+            lockinButton.disabled = true;
+
+            redPointerImage.style.left = "500px";
+            redPointerImage.style.top = "100px";
+
+            resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+
             document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
             element.style.filter = 'blur(5px)';
+
+
         });
 
         });
@@ -489,14 +505,17 @@
             console.log(points);
             }
 
+            resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
             var popup = document.getElementById('scoreResultPopup');
             popup.classList.toggle('active');
             const scorepopup = document.querySelector('#scoreResultPopup');
 
-            scoreText.innerHTML = `Score: ${points}`;
+            totalPoints = totalPoints + points;
+            scoreText.innerHTML = `Total Score: ${totalPoints}`;
 
-            const resultMap = document.querySelector('resultMap');
-            mapImage.src = `/static/maps/${randommapFolder}.png`;
+            lockinButton.disabled = true;
+
+
 
             document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
             element.style.filter = 'blur(5px)';
