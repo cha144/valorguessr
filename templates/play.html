@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Valorant Geoguessr</title>
+    <title>ValorGuessr</title>
 </head>
 <style>
     @font-face {
@@ -158,384 +158,463 @@
         <h1>Time: <span id="timer">15</span></h1>
     </div>
     <div class="gameTitle">
-        <h1>Valorant Geoguessr</h1>
+        <h1>ValorGuessr</h1>
     </div>
     <div class="lockinButton">
         <button id="lockIn">Lock in</button>
     </div>
     <div id="scoreResultPopup">
-        <h2>Score: </h2>
+        <h3>Score: </h3>
         <img id = "resultMap" src="/static/maps/ascent.png" style="width:550px;height:auto;">
-        <img id ="redpointerImg" src="/static/RedMapPointer.png" style="width:18px;height:auto;">
+        <img id = "redpointerImg" src="/static/RedMapPointer.png" style="width:18px;height:auto;">
+        <img id = "chosenpointerImg" src="/static/MapPointer.png" style="width:20px;height:auto;">
+        <h2>Total score: </h2>
     </div>
     <script src="/static/mapLocations.js"></script>
     <script src="/static/resultmapLocations.js"></script>
     <script>
-
-        var lockinButton = document.getElementById("lockIn");
-        lockinButton.disabled = true;
-
-        let imgInvisible = true;
-        let poimgInvisible = true;
-
-        let randommapImage;
-        let randommapFolder;
-        var duration = 15;
-
-        function startTimer(duration) {
-        var timer = document.getElementById("timer");
-        var countdown = setInterval(function() {
-            duration--;
-            timer.innerHTML = duration;
-            if (duration <=0) {
-                clearInterval(countdown);
-                timer.innerHTML = "Time's up!";
-            }
-        }, 1000);
-            return countdown;
-        }
-
-        const tick = () => {
-        let e = document.querySelector(".counter");
-            let time = 6; // start countdown from 6 instead of 5
-            const k = setInterval(() => {
-            time--;
-            if (time == 0) {
-              clearInterval(k);
-              e.innerHTML = "<span>Begin</span>";
-              setTimeout(() => {
-
-              const mapFolders = [
-                  "ascent",
-                  "breeze",
-                  "haven",
-                  "icebox",
-                  "pearl",
-                  "split"
-              ];
-
-              const ascentMaps = [
-                  "Ascent1.png",
-                  "Ascent2.png",
-                  "Ascent3.png",
-                  "Ascent4.png",
-                  "Ascent5.png",
-                  "Ascent6.png",
-                  "Ascent7.png"
-              ];
-
-              const breezeMaps = [
-                  "Breeze1.png",
-                  "Breeze2.png",
-                  "Breeze3.png",
-                  "Breeze4.png",
-                  "Breeze5.png",
-                  "Breeze6.png",
-                  "Breeze7.png",
-                  "Breeze8.png",
-                  "Breeze9.png",
-                  "Breeze10.png",
-                  "Breeze11.png"
-              ];
-
-              const havenMaps = [
-                  "Haven1.png",
-                  "Haven2.png",
-                  "Haven3.png",
-                  "Haven4.png",
-                  "Haven5.png",
-                  "Haven6.png",
-                  "Haven7.png",
-                  "Haven8.png"
-              ];
-
-              const iceboxMaps = [
-                  "Icebox1.png",
-                  "Icebox2.png",
-                  "Icebox3.png",
-                  "Icebox4.png",
-                  "Icebox5.png",
-                  "Icebox6.png",
-                  "Icebox7.png",
-                  "Icebox8.png",
-                  "Icebox9.png",
-                  "Icebox10.png"
-              ];
-
-              const lotusMaps = [
-                  "Lotus1.png",
-                  "Lotus2.png",
-                  "Lotus3.png",
-                  "Lotus4.png",
-                  "Lotus5.png",
-                  "Lotus6.png",
-                  "Lotus7.png",
-                  "Lotus8.png",
-                  "Lotus9.png",
-              ];
-
-              const pearlMaps = [
-                  "Pearl1.png",
-                  "Pearl2.png",
-                  "Pearl3.png",
-                  "Pearl4.png",
-                  "Pearl5.png",
-                  "Pearl6.png",
-                  "Pearl7.png",
-                  "Pearl8.png",
-                  "Pearl9.png",
-                  "Pearl10.png"
-              ];
-
-              const splitMaps = [
-                  "Split1.png",
-                  "Split2.png",
-                  "Split3.png",
-                  "Split4.png",
-                  "Split5.png",
-                  "Split6.png",
-                  "Split7.png",
-                  "Split8.png",
-                  "Split9.png",
-                  "Split10.png",
-                  "Split11.png"
-              ];
-
-              const randomFolder = Math.floor(Math.random() * mapFolders.length);
-              randommapFolder = mapFolders[randomFolder];
-              let randomImage;
-              let index;
-
-              if (randommapFolder == "ascent"){
-              console.log("ascent");
-              randomImage = Math.floor(Math.random() * ascentMaps.length);
-              randommapImage = ascentMaps[randomImage];
-              index = ascentMaps.indexOf(randomImage, 1);
-              ascentMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "breeze"){
-              console.log("breeze");
-              randomImage = Math.floor(Math.random() * breezeMaps.length);
-              randommapImage = breezeMaps[randomImage];
-              index = breezeMaps.indexOf(randomImage, 1);
-              breezeMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "haven"){
-              console.log("haven");
-              randomImage = Math.floor(Math.random() * havenMaps.length);
-              randommapImage = havenMaps[randomImage];
-              index = havenMaps.indexOf(randomImage, 1);
-              havenMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "icebox"){
-              console.log("icebox");
-              randomImage = Math.floor(Math.random() * iceboxMaps.length);
-              randommapImage = iceboxMaps[randomImage];
-              index = iceboxMaps.indexOf(randomImage, 1);
-              iceboxMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "lotus"){
-              console.log("lotus");
-              randomImage = Math.floor(Math.random() * lotusMaps.length);
-              randommapImage = lotusMaps[randomImage];
-              index = lotusMaps.indexOf(randomImage, 1);
-              lotusMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "pearl"){
-              console.log("pearl");
-              randomImage = Math.floor(Math.random() * pearlMaps.length);
-              randommapImage = pearlMaps[randomImage];
-              index = pearlMaps.indexOf(randomImage, 1);
-              pearlMaps.splice(index, 1);
-              }
-
-              if (randommapFolder == "split"){
-              console.log("split");
-              randomImage = Math.floor(Math.random() * splitMaps.length);
-              randommapImage = splitMaps[randomImage];
-              index = splitMaps.indexOf(randomImage, 1);
-              splitMaps.splice(index, 1);
-              }
-
-              console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
-              document.body.style.backgroundImage = `url('/static/locations/${randommapFolder}/${randommapImage}')`;
-              imgInvisible = false;
-              toggleImage();
-
-              mapImg.setAttribute('src', `/static/maps/${randommapFolder}.png`);
-
-              var countdown = startTimer(duration);
-
-
-
-              }, 1000);
-            } else {
-              e.innerHTML = `<span>${time}</span>`;
-            }
-          }, 1000);
-        };
-        tick();
-
-        var pointerImage = document.getElementById('pointerImg');
-
-        function toggleImage() {
-             const image = document.getElementById('mapImg');
-             const timerText = document.querySelector(".timer-container");
-
-             if (imgInvisible) {
-                image.style.display = 'none';
-                timer.style.display = 'none';
-                timerText.style.display = 'none';
-                lockinButton.style.display = 'none';
-              }
-             else {
-                image.style.display = 'block';
-                timer.style.display = 'block';
-                timerText.style.display = 'block';
-                lockinButton.style.display = 'block';
-              }
-              imgInvisible = !imgInvisible;
-            }
-
-        function showPointer() {
-
-             const poImage = document.getElementById('pointerImg');
-
-             if (poimgInvisible) {
-                poImage.style.display = 'none';
-              }
-             else {
-                poImage.style.display = 'block';
-              }
-              poimgInvisible = !poimgInvisible;
-            }
-
-        window.onload = () => {
-            toggleImage();
-            showPointer();
-        };
-
-        var mapImage = document.getElementById('mapImg');
-        let chosenX;
-        let chosenY;
-
-        mapImage.addEventListener('click', function(event) {
-            console.log("clicked");
-
-            lockinButton.disabled = false;
-            lockinButton.style.opacity = 1;
-            poimgInvisible = false;
-            showPointer();
-            
-            chosenX = event.pageX - mapImage.offsetLeft;
-            chosenY = event.pageY - mapImage.offsetTop;
-
-            pointerImage.style.position = "absolute";
-
-            pointerImage.style.left = chosenX - 975 + 'px';
-            pointerImage.style.top = chosenY - 170 + 'px';
-            });
-
-        let points = 50;
-        var scoreText = document.querySelector("#scoreResultPopup h2");
-        function calculateScore (randommapImage, chosenX, chosenY) {
-            console.log(randommapImage);
-            const actualX = locations[randommapImage].x;
-            const actualY = locations[randommapImage].y;
-            const distance = Math.sqrt((chosenX - actualX) ** 2 + (chosenY - actualY) ** 2);
-
-            points = points + Math.floor(distance / 2) * 10;
-            points = 1000 - points;
-
-            if (points < 0) {
-                points = 0;
-            }
-
-            if (points > 900) {
-                points = 1000;
-            }
-
-            return points;
-        }
-
-        let stoploop = false;
         let totalPoints = 0;
+        let poimgInvisible = true;
+        let mapEnabled = true;
 
-        var redPointerImage = document.getElementById('redpointerImg');
-
-        lockinButton.addEventListener("click", function() {
-        points = calculateScore(randommapImage, chosenX, chosenY);
-
+        function nextLevel() {
             var popup = document.getElementById('scoreResultPopup');
-            popup.classList.toggle('active');
-            const scorepopup = document.querySelector('#scoreResultPopup');
+                    popup.classList.remove('active');
+                    document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
+                    element.style.filter = '';
+                    });
+                    poimgInvisible = true;
+                    mapEnabled = true;
+                    var pointerImage = document.getElementById('pointerImg');
+                    pointerImage.style.left = '-3000px';
+                    var lockinButton = document.getElementById("lockIn");
+                    lockinButton.style.opacity = 0.3;
+                    playGame();
+        }
 
-            stoploop = true;
-            totalPoints = totalPoints + points;
-            scoreText.innerHTML = `Total Score: ${totalPoints}`;
+        const debouncedNextLevel = debounce(nextLevel, 1000);
+
+        function debounce(func, delay) {
+            let timeoutId;
+            return function() {
+                const context = this;
+                const args = arguments;
+                clearTimeout(timeoutId);
+                timeoutId = setTimeout(function() {
+                    func.apply(context, args);
+                    timeoutId = null;
+                }, delay);
+            };
+        }
+
+        const mapFolders = [
+                      "ascent",
+                      "breeze",
+                      "haven",
+                      "icebox",
+                      "pearl",
+                      "split"
+                  ];
+
+                  const ascentMaps = [
+                      "Ascent1.png",
+                      "Ascent2.png",
+                      "Ascent3.png",
+                      "Ascent4.png",
+                      "Ascent5.png",
+                      "Ascent6.png",
+                      "Ascent7.png"
+                  ];
+
+                  const breezeMaps = [
+                      "Breeze1.png",
+                      "Breeze2.png",
+                      "Breeze3.png",
+                      "Breeze4.png",
+                      "Breeze5.png",
+                      "Breeze6.png",
+                      "Breeze7.png",
+                      "Breeze8.png",
+                      "Breeze9.png",
+                      "Breeze10.png",
+                      "Breeze11.png"
+                  ];
+
+                  const havenMaps = [
+                      "Haven1.png",
+                      "Haven2.png",
+                      "Haven3.png",
+                      "Haven4.png",
+                      "Haven5.png",
+                      "Haven6.png",
+                      "Haven7.png",
+                      "Haven8.png"
+                  ];
+
+                  const iceboxMaps = [
+                      "Icebox1.png",
+                      "Icebox2.png",
+                      "Icebox3.png",
+                      "Icebox4.png",
+                      "Icebox5.png",
+                      "Icebox6.png",
+                      "Icebox7.png",
+                      "Icebox8.png",
+                      "Icebox9.png",
+                      "Icebox10.png"
+                  ];
+
+                  const lotusMaps = [
+                      "Lotus1.png",
+                      "Lotus2.png",
+                      "Lotus3.png",
+                      "Lotus4.png",
+                      "Lotus5.png",
+                      "Lotus6.png",
+                      "Lotus7.png",
+                      "Lotus8.png",
+                      "Lotus9.png",
+                  ];
+
+                  const pearlMaps = [
+                      "Pearl1.png",
+                      "Pearl2.png",
+                      "Pearl3.png",
+                      "Pearl4.png",
+                      "Pearl5.png",
+                      "Pearl6.png",
+                      "Pearl7.png",
+                      "Pearl8.png",
+                      "Pearl9.png",
+                      "Pearl10.png"
+                  ];
+
+                  const splitMaps = [
+                      "Split1.png",
+                      "Split2.png",
+                      "Split3.png",
+                      "Split4.png",
+                      "Split5.png",
+                      "Split6.png",
+                      "Split7.png",
+                      "Split8.png",
+                      "Split9.png",
+                      "Split10.png",
+                      "Split11.png"
+                  ];
+
+        function playGame() {
+            console.log("check in");
+            var lockinButton = document.getElementById("lockIn");
             lockinButton.disabled = true;
 
-            const mapPosX = resultLocations[randommapImage].x;
-            const mapPosY = resultLocations[randommapImage].y;
+            let imgInvisible = true;
 
-            console.log(mapPosX, mapPosY);
+            let randommapImage;
+            let randommapFolder;
+            var duration = 15;
+            var resultPopup = false;
+            let countdown;
 
-            redPointerImage.style.position = "absolute";
-            redPointerImage.style.left = mapPosX + 'px';
-            redPointerImage.style.top = mapPosY + 'px';
+            function startTimer(duration) {
+                if (countdown) {
+                    return;
+                }
 
-            resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
-
-            document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
-            element.style.filter = 'blur(5px)';
-
-
-        });
-
-        });
-
-        let durationLoop=22;
-
-        function loop() {
-            console.log(durationLoop);
-            durationLoop--;
-            if (!stoploop && durationLoop < 0) {
-            points = calculateScore(randommapImage, chosenX, chosenY);
-            if (Number.isNaN(points)) {
-            points = 0;
-            console.log(points);
+            var timer = document.getElementById("timer");
+                countdown = setInterval(function() {
+                if (!resultPopup) {
+                duration--;
+                timer.innerHTML = duration;
+                if (duration <=0) {
+                    clearInterval(countdown);
+                    timer.innerHTML = "Time's up!";
+                    duration = 15;
+                }
+                }
+            }, 1000);
+                return countdown;
             }
 
-            resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+            const tick = () => {
+            let e = document.querySelector(".counter");
+                let time = 4;
+                const k = setInterval(() => {
+                time--;
+                if (time == 0) {
+                  clearInterval(k);
+                  e.innerHTML = "<span>Go</span>";
+                  setTimeout(() => {
+
+                  const randomFolder = Math.floor(Math.random() * mapFolders.length);
+                  randommapFolder = mapFolders[randomFolder];
+                  let randomImage;
+                  let index;
+
+                  if (randommapFolder == "ascent"){
+                  console.log("ascent");
+                  randomImage = Math.floor(Math.random() * ascentMaps.length);
+                  randommapImage = ascentMaps[randomImage];
+                  index = ascentMaps.indexOf(randomImage, 1);
+                  ascentMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "breeze"){
+                  console.log("breeze");
+                  randomImage = Math.floor(Math.random() * breezeMaps.length);
+                  randommapImage = breezeMaps[randomImage];
+                  index = breezeMaps.indexOf(randomImage, 1);
+                  breezeMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "haven"){
+                  console.log("haven");
+                  randomImage = Math.floor(Math.random() * havenMaps.length);
+                  randommapImage = havenMaps[randomImage];
+                  index = havenMaps.indexOf(randomImage, 1);
+                  havenMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "icebox"){
+                  console.log("icebox");
+                  randomImage = Math.floor(Math.random() * iceboxMaps.length);
+                  randommapImage = iceboxMaps[randomImage];
+                  index = iceboxMaps.indexOf(randomImage, 1);
+                  iceboxMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "lotus"){
+                  console.log("lotus");
+                  randomImage = Math.floor(Math.random() * lotusMaps.length);
+                  randommapImage = lotusMaps[randomImage];
+                  index = lotusMaps.indexOf(randomImage, 1);
+                  lotusMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "pearl"){
+                  console.log("pearl");
+                  randomImage = Math.floor(Math.random() * pearlMaps.length);
+                  randommapImage = pearlMaps[randomImage];
+                  index = pearlMaps.indexOf(randomImage, 1);
+                  pearlMaps.splice(index, 1);
+                  }
+
+                  if (randommapFolder == "split"){
+                  console.log("split");
+                  randomImage = Math.floor(Math.random() * splitMaps.length);
+                  randommapImage = splitMaps[randomImage];
+                  index = splitMaps.indexOf(randomImage, 1);
+                  splitMaps.splice(index, 1);
+                  }
+
+                  console.log(`url('/static/locations/${randommapFolder}/${randommapImage}')`);
+                  document.body.style.backgroundImage = `url('/static/locations/${randommapFolder}/${randommapImage}')`;
+                  imgInvisible = false;
+                  toggleImage();
+
+                  mapImg.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+
+                  var countdown = startTimer(duration);
+
+                  time = 4;
+
+
+
+                  }, 1000);
+                } else {
+                  e.innerHTML = `<span>${time}</span>`;
+                }
+              }, 1000);
+            };
+            tick();
+
+            var pointerImage = document.getElementById('pointerImg');
+
+            function toggleImage() {
+                 const image = document.getElementById('mapImg');
+                 const timerText = document.querySelector(".timer-container");
+
+                 if (imgInvisible) {
+                    image.style.display = 'none';
+                    timer.style.display = 'none';
+                    timerText.style.display = 'none';
+                    lockinButton.style.display = 'none';
+                  }
+                 else {
+                    image.style.display = 'block';
+                    timer.style.display = 'block';
+                    timerText.style.display = 'block';
+                    lockinButton.style.display = 'block';
+                  }
+                  imgInvisible = !imgInvisible;
+                }
+
+            function showPointer() {
+
+                 const poImage = document.getElementById('pointerImg');
+
+                 if (poimgInvisible) {
+                    poImage.style.display = 'none';
+                  }
+                 else {
+                    poImage.style.display = 'block';
+                  }
+                  poimgInvisible = !poimgInvisible;
+                }
+
+            window.onload = () => {
+                toggleImage();
+                showPointer();
+            };
+
+            var mapImage = document.getElementById('mapImg');
+            let chosenX;
+            let chosenY;
+
+            mapImage.addEventListener('click', function(event) {
+                if(mapEnabled) {
+                console.log("clicked");
+
+                lockinButton.disabled = false;
+                lockinButton.style.opacity = 1;
+                poimgInvisible = false;
+                showPointer();
+
+                chosenX = event.pageX - mapImage.offsetLeft;
+                chosenY = event.pageY - mapImage.offsetTop;
+
+                pointerImage.style.position = "absolute";
+
+                pointerImage.style.left = chosenX - 975 + 'px';
+                pointerImage.style.top = chosenY - 170 + 'px';
+                }
+                });
+
+            let points = 0;
+            var totalscoreText = document.querySelector("#scoreResultPopup h2");
+            var scoreText = document.querySelector("#scoreResultPopup h3");
+
+            function calculateScore (randommapImage, chosenX, chosenY) {
+                console.log(randommapImage);
+                const actualX = locations[randommapImage].x;
+                const actualY = locations[randommapImage].y;
+                const distance = Math.sqrt((chosenX - actualX) ** 2 + (chosenY - actualY) ** 2);
+
+                points = points + Math.floor(distance / 2) * 10;
+                points = 1000 - points;
+
+
+                if (points < 0) {
+                    points = 0;
+                }
+
+                if (points > 900) {
+                    points = 1000;
+                }
+
+                return points;
+
+            }
+
+            let stoploop = false;
+
+            var redPointerImage = document.getElementById('redpointerImg');
+            var chosenPointer = document.getElementById('chosenpointerImg');
             var popup = document.getElementById('scoreResultPopup');
-            popup.classList.toggle('active');
-            const scorepopup = document.querySelector('#scoreResultPopup');
 
-            totalPoints = totalPoints + points;
-            scoreText.innerHTML = `Total Score: ${totalPoints}`;
+            lockinButton.addEventListener("click", function() {
+            points = calculateScore(randommapImage, chosenX, chosenY);
 
-            lockinButton.disabled = true;
-
+                popup.classList.add('active');
+                const scorepopup = document.querySelector('#scoreResultPopup');
 
 
-            document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
-            element.style.filter = 'blur(5px)';
+                stoploop = true;
+                totalPoints = totalPoints + points;
+                totalscoreText.innerHTML = `Total score: ${totalPoints}`
+                scoreText.innerHTML = `Points: ${points}`;
+                lockinButton.disabled = true;
+
+                const mapPosX = resultLocations[randommapImage].x;
+                const mapPosY = resultLocations[randommapImage].y;
+
+                redPointerImage.style.position = "absolute";
+                redPointerImage.style.left = mapPosX + 'px';
+                redPointerImage.style.top = mapPosY + 'px';
+
+                resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+
+                document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
+                element.style.filter = 'blur(5px)';
+                resultPopup = true;
+                let poimgInvisible = true;
+                mapEnabled = false;
+
+                setTimeout(debouncedNextLevel, 5000);
+
+                return;
+
+
             });
-            stoploop = true;
-            return;
-        }
 
-        setTimeout(() => {
+            });
+
+            let durationLoop=22;
+
+            function loop() {
+                durationLoop--;
+                if (!stoploop && durationLoop < 0) {
+                points = calculateScore(randommapImage, chosenX, chosenY);
+                if (Number.isNaN(points)) {
+                points = 0;
+                console.log(points);
+                }
+
+                resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
+                var popup = document.getElementById('scoreResultPopup');
+                popup.classList.add('active');
+                const scorepopup = document.querySelector('#scoreResultPopup');
+
+                const mapPosX = resultLocations[randommapImage].x;
+                const mapPosY = resultLocations[randommapImage].y;
+
+                console.log(mapPosX, mapPosY);
+
+                redPointerImage.style.position = "absolute";
+                redPointerImage.style.left = mapPosX + 'px';
+                redPointerImage.style.top = mapPosY + 'px';
+
+                totalPoints = totalPoints + points;
+                totalscoreText.innerHTML = `Total score: ${totalPoints}`;
+                scoreText.innerHTML = `Points: ${points}`;
+
+                lockinButton.disabled = true;
+
+                document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
+                element.style.filter = 'blur(5px)';
+                resultPopup = true;
+                let poimgInvisible = true;
+                mapEnabled = false;
+
+                setTimeout(debouncedNextLevel, 5000);
+
+                });
+                stoploop = true;
+
+
+
+            }
+
+            setTimeout(() => {
+                loop();
+            }, 1000);
+            }
+
             loop();
-        }, 1000);
-        }
 
-        loop();
+    }
+
+    playGame();
 
     </script>
 </body>
