@@ -44,4 +44,3 @@ def play():
     else:
         return render_template("play.html")
 
-

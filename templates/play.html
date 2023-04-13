@@ -176,6 +176,7 @@
         let totalPoints = 0;
         let poimgInvisible = true;
         let mapEnabled = true;
+        let isPlaying = false;
 
         function nextLevel() {
             var popup = document.getElementById('scoreResultPopup');
@@ -189,7 +190,16 @@
                     pointerImage.style.left = '-3000px';
                     var lockinButton = document.getElementById("lockIn");
                     lockinButton.style.opacity = 0.3;
+
+            if (!isPlaying) {
+                isPlaying = true;
+
+                setTimeout(function() {
                     playGame();
+
+                    isPlaying = false;
+                }, 1000);
+            }
         }
 
         const debouncedNextLevel = debounce(nextLevel, 1000);
@@ -512,7 +522,9 @@
                     points = 1000;
                 }
 
+                console.log(points);
                 return points;
+
 
             }
 
@@ -522,8 +534,8 @@
             var chosenPointer = document.getElementById('chosenpointerImg');
             var popup = document.getElementById('scoreResultPopup');
 
-            lockinButton.addEventListener("click", function() {
-            points = calculateScore(randommapImage, chosenX, chosenY);
+            function lockinButtonClick() {
+                points = calculateScore(randommapImage, chosenX, chosenY);
 
                 popup.classList.add('active');
                 const scorepopup = document.querySelector('#scoreResultPopup');
@@ -546,18 +558,22 @@
 
                 document.querySelectorAll('body > *:not(#scoreResultPopup)').forEach(element => {
                 element.style.filter = 'blur(5px)';
+                });
+
                 resultPopup = true;
                 let poimgInvisible = true;
                 mapEnabled = false;
 
                 setTimeout(debouncedNextLevel, 5000);
+                lockinButton.removeEventListener("click", lockinButtonClick);
 
                 return;
 
+            }
 
-            });
+            lockinButton.addEventListener("click", lockinButtonClick);
 
-            });
+
 
             let durationLoop=22;
 
