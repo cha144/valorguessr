@@ -4,8 +4,14 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    user_agent = request.user_agent
-    if user_agent.platform == 'android' or user_agent.platform == 'iphone' or user_agent.platform == 'ipad':
+    user_agent = request.headers.get('User-Agent')
+    user_agent = user_agent.lower()
+
+    if "iphone" in user_agent:
+        return render_template('mobile.html')
+    elif "android" in user_agent:
+        return render_template('mobile.html')
+    elif "ipad" in user_agent:
         return render_template('mobile.html')
     else:
         return render_template("home.html")
