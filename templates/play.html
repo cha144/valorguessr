@@ -149,8 +149,20 @@
         left: 50%;
    }
 
+   .roundMarker {
+        position: absolute;
+        top: 5%;
+        left: 67%;
+        font-size: 25px;
+        background-color: black;
+        padding: 15px;
+   }
+
 </style>
 <body>
+    <div class="roundMarker">
+        <h1>Round: <span id="currentRound">1</span> / <span id="maxRound">1</span></h1>
+    </div>
     <div>
         <span class="counter"></span>
     </div>
@@ -184,6 +196,10 @@
         let mapEnabled = true;
         let isPlaying = false;
         let numberofRounds = 3;
+        let currentRound = 0;
+
+        var numberofRoundsText = document.querySelector('.roundMarker #maxRound');
+        numberofRoundsText.innerHTML = numberofRounds;
 
         function nextLevel() {
             var popup = document.getElementById('scoreResultPopup');
@@ -334,6 +350,7 @@
             var duration = 15;
             var resultPopup = false;
             let countdown;
+            currentRound++;
 
             function startTimer(duration) {
                 if (countdown) {
@@ -369,6 +386,8 @@
                   randommapFolder = mapFolders[randomFolder];
                   let randomImage;
                   let index;
+                  var currentRoundText = document.querySelector('.roundMarker #currentRound');
+                  currentRoundText.innerHTML = currentRound;
 
                   if (randommapFolder == "ascent"){
                   console.log("ascent");
@@ -448,6 +467,7 @@
             tick();
 
             var pointerImage = document.getElementById('pointerImg');
+            var roundMarker = document.querySelector('.roundMarker');
 
             function toggleImage() {
                  const image = document.getElementById('mapImg');
@@ -458,12 +478,14 @@
                     timer.style.display = 'none';
                     timerText.style.display = 'none';
                     lockinButton.style.display = 'none';
+                    roundMarker.style.display = 'none';
                   }
                  else {
                     image.style.display = 'block';
                     timer.style.display = 'block';
                     timerText.style.display = 'block';
                     lockinButton.style.display = 'block';
+                    roundMarker.style.display = 'block';
                   }
                   imgInvisible = !imgInvisible;
                 }
@@ -611,7 +633,7 @@
                 console.log(centerPointer.style.top);
 
                 centerPointerXInContainer = centerPointer.offsetLeft;
-                centerPointerYInContainer = 745;
+                centerPointerYInContainer = 755;
 
                 console.log(centerPointer.offsetTop);
 
@@ -712,7 +734,7 @@
                 console.log(centerPointer.style.top);
 
                 centerPointerXInContainer = centerPointer.offsetLeft;
-                centerPointerYInContainer = 745;
+                centerPointerYInContainer = 749;
 
                 console.log(centerPointer.offsetTop);
 
