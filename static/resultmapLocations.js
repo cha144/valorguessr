@@ -2,7 +2,7 @@ const resultLocations = {
 //Ascent
 'Ascent1.png': {x: 580, y: 650},
 'Ascent2.png': {x: 605, y: 575},
-'Ascent3.png': {x: 250, y: 490},
+'Ascent3.png': {x: 270, y: 490},
 'Ascent4.png': {x: 455, y: 580},
 'Ascent5.png': {x: 530, y: 470},
 'Ascent6.png': {x: 270, y: 620},

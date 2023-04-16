@@ -143,6 +143,12 @@
         transition: 0.5s;
    }
 
+   .scoreResultPopup #chosenpointerImg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+   }
+
 </style>
 <body>
     <div>
@@ -177,6 +183,7 @@
         let poimgInvisible = true;
         let mapEnabled = true;
         let isPlaying = false;
+        let numberofRounds = 3;
 
         function nextLevel() {
             var popup = document.getElementById('scoreResultPopup');
@@ -195,8 +202,10 @@
                 isPlaying = true;
 
                 setTimeout(function() {
+                    if(numberofRounds > 0){
                     playGame();
-
+                    numberofRounds--;
+                    }
                     isPlaying = false;
                 }, 1000);
             }
@@ -481,8 +490,8 @@
             let chosenX;
             let chosenY;
 
-            mapImage.addEventListener('click', function(event) {
-                if(mapEnabled) {
+            function mapClick() {
+            if(mapEnabled) {
                 console.log("clicked");
 
                 lockinButton.disabled = false;
@@ -493,12 +502,15 @@
                 chosenX = event.pageX - mapImage.offsetLeft;
                 chosenY = event.pageY - mapImage.offsetTop;
 
+                console.log(chosenX);
+                console.log(chosenY);
+
                 pointerImage.style.position = "absolute";
 
                 pointerImage.style.left = chosenX - 975 + 'px';
                 pointerImage.style.top = chosenY - 170 + 'px';
                 }
-                });
+            }
 
             let points = 0;
             var totalscoreText = document.querySelector("#scoreResultPopup h2");
@@ -531,10 +543,32 @@
             let stoploop = false;
 
             var redPointerImage = document.getElementById('redpointerImg');
-            var chosenPointer = document.getElementById('chosenpointerImg');
+            var centerPointer = document.querySelector('#scoreResultPopup #chosenpointerImg');
+            var cornerMap = document.querySelector('.map-container #mapImg');
+            var centerMap = document.querySelector('#scoreResultPopup #resultMap');
+            var pointer = document.querySelector('.map-container .pointer #pointerImg');
             var popup = document.getElementById('scoreResultPopup');
 
             function lockinButtonClick() {
+
+                let cornerPointerX = null;
+                let cornerPointerY = null;
+
+                let cornerMapWidth = null;
+                let cornerMapHeight = null;
+
+                let centerMapWidth = null;
+                let centerMapHeight = null;
+
+                let centerPointerContainer = null;
+                let centerPointerContainerWidth = null;
+                let centerPointerContainerHeight = null;
+
+                let centerPointerXInContainer = null;
+                let centerPointerYInContainer = null;
+
+                let scaleFactor = null;
+
                 points = calculateScore(randommapImage, chosenX, chosenY);
 
                 popup.classList.add('active');
@@ -551,8 +585,56 @@
                 const mapPosY = resultLocations[randommapImage].y;
 
                 redPointerImage.style.position = "absolute";
-                redPointerImage.style.left = mapPosX + 'px';
+                redPointerImage.style.left = mapPosX + 20 + 'px';
                 redPointerImage.style.top = mapPosY + 'px';
+
+                cornerPointerX = pointer.getBoundingClientRect().left + window.pageXOffset;
+                cornerPointerY = pointer.offsetTop;
+
+                console.log(cornerPointerX);
+                console.log(cornerPointerY);
+
+                cornerMapWidth = cornerMap.offsetWidth;
+                cornerMapHeight = cornerMap.offsetHeight;
+
+                centerMapWidth = centerMap.offsetWidth;
+                ccenterMapHeight = centerMap.offsetHeight;
+
+                centerPointerContainer = centerPointer.parentElement;
+                centerPointerContainerWidth = centerPointerContainer.offsetWidth;
+                centerPointerContainerHeight = centerPointerContainer.offsetHeight;
+
+                centerPointer.style.top = null;
+                centerPointer.style.left = null;
+
+                console.log(centerPointer.style.left);
+                console.log(centerPointer.style.top);
+
+                centerPointerXInContainer = centerPointer.offsetLeft;
+                centerPointerYInContainer = 745;
+
+                console.log(centerPointer.offsetTop);
+
+                scaleFactor = centerMapWidth / cornerMapWidth;
+
+                centerPointerX = cornerPointerX * scaleFactor + centerPointerXInContainer - centerPointerContainerWidth / 2;
+                centerPointerY = cornerPointerY * scaleFactor + centerPointerYInContainer - centerPointerContainerHeight / 2;
+
+                console.log(scaleFactor);
+                console.log(centerPointerXInContainer);
+                console.log(centerPointerContainerWidth);
+                console.log(centerPointerYInContainer);
+                console.log(centerPointerContainerHeight);
+
+                console.log(centerPointerX);
+                console.log(centerPointerY);
+
+                centerPointer.style.position = "absolute";
+                centerPointer.style.left = centerPointerX - 110 + "px";
+                centerPointer.style.top = centerPointerY - 460 + "px";
+
+                console.log(centerPointer.style.left);
+                console.log(centerPointer.style.top);
 
                 resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
 
@@ -566,12 +648,15 @@
 
                 setTimeout(debouncedNextLevel, 5000);
                 lockinButton.removeEventListener("click", lockinButtonClick);
+                mapImage.removeEventListener('click', mapClick);
+
 
                 return;
 
             }
 
             lockinButton.addEventListener("click", lockinButtonClick);
+            mapImage.addEventListener('click', mapClick)
 
 
 
@@ -586,6 +671,72 @@
                 console.log(points);
                 }
 
+                let cornerPointerX = null;
+                let cornerPointerY = null;
+
+                let cornerMapWidth = null;
+                let cornerMapHeight = null;
+
+                let centerMapWidth = null;
+                let centerMapHeight = null;
+
+                let centerPointerContainer = null;
+                let centerPointerContainerWidth = null;
+                let centerPointerContainerHeight = null;
+
+                let centerPointerXInContainer = null;
+                let centerPointerYInContainer = null;
+
+                let scaleFactor = null;
+
+                cornerPointerX = pointer.getBoundingClientRect().left + window.pageXOffset;
+                cornerPointerY = pointer.offsetTop;
+
+                console.log(cornerPointerX);
+                console.log(cornerPointerY);
+
+                cornerMapWidth = cornerMap.offsetWidth;
+                cornerMapHeight = cornerMap.offsetHeight;
+
+                centerMapWidth = centerMap.offsetWidth;
+                ccenterMapHeight = centerMap.offsetHeight;
+
+                centerPointerContainer = centerPointer.parentElement;
+                centerPointerContainerWidth = centerPointerContainer.offsetWidth;
+                centerPointerContainerHeight = centerPointerContainer.offsetHeight;
+
+                centerPointer.style.top = null;
+                centerPointer.style.left = null;
+
+                console.log(centerPointer.style.left);
+                console.log(centerPointer.style.top);
+
+                centerPointerXInContainer = centerPointer.offsetLeft;
+                centerPointerYInContainer = 745;
+
+                console.log(centerPointer.offsetTop);
+
+                scaleFactor = centerMapWidth / cornerMapWidth;
+
+                centerPointerX = cornerPointerX * scaleFactor + centerPointerXInContainer - centerPointerContainerWidth / 2;
+                centerPointerY = cornerPointerY * scaleFactor + centerPointerYInContainer - centerPointerContainerHeight / 2;
+
+                console.log(scaleFactor);
+                console.log(centerPointerXInContainer);
+                console.log(centerPointerContainerWidth);
+                console.log(centerPointerYInContainer);
+                console.log(centerPointerContainerHeight);
+
+                console.log(centerPointerX);
+                console.log(centerPointerY);
+
+                centerPointer.style.position = "absolute";
+                centerPointer.style.left = centerPointerX - 110 + "px";
+                centerPointer.style.top = centerPointerY - 460 + "px";
+
+                console.log(centerPointer.style.left);
+                console.log(centerPointer.style.top);
+
                 resultMap.setAttribute('src', `/static/maps/${randommapFolder}.png`);
                 var popup = document.getElementById('scoreResultPopup');
                 popup.classList.add('active');
@@ -597,7 +748,7 @@
                 console.log(mapPosX, mapPosY);
 
                 redPointerImage.style.position = "absolute";
-                redPointerImage.style.left = mapPosX + 'px';
+                redPointerImage.style.left = mapPosX + 20 + 'px';
                 redPointerImage.style.top = mapPosY + 'px';
 
                 totalPoints = totalPoints + points;
