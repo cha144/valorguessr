@@ -158,6 +158,67 @@
         padding: 15px;
    }
 
+   .finalScoreContainer {
+        font-size: 50px;
+        position: fixed;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        width: 900px;
+        padding: 50px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, .90);
+        background-color: #000;
+        visibility: hidden;
+        opacity: 0;
+        transition: 0.5s;
+   }
+
+   .finalScoreContainer.active {
+        top: 50%;
+        visibility: visible;
+        opacity: 1;
+        transition: 0.5s;
+   }
+
+   .finalScoreContainer #finalScoreText {
+        font-family: "ValorantFont";
+        color: #fa4454;
+   }
+
+   .finalScoreContainer #finalScore {
+        font-family: #ValorantFont";
+        font-size: 25px;
+        letter-spacing: 15px;
+        color: #fa4454;
+        text-transform: uppercase;
+        width: 100%;
+        text-align: center;
+        -webkit-box-reflect: below 1px linear-gradient(transparent, #0004);
+        line-height: 0.70em;
+        animation: animate 5s linear forwards infinite;
+   }
+
+   @keyframes animate
+   {
+        0%
+        {
+            color: #fa4454;
+            text-shadow: none;
+        }
+        60% {
+            color: #fff;
+            text-shadow: 0 0 10px #fa4454,
+            0 0 20px #fa4454,
+            0 0 40px #fa4454,
+            0 0 80px #fa4454,
+            0 0 160px #fa4454;
+        100%
+        {
+            color: #fa4454;
+            text-shadow: none;
+        }
+   }
+
 </style>
 <body>
     <div class="roundMarker">
@@ -188,6 +249,10 @@
         <img id = "chosenpointerImg" src="/static/MapPointer.png" style="width:20px;height:auto;">
         <h2>Total score: </h2>
     </div>
+    <div class="finalScoreContainer">
+        <h1 id="finalScoreText">Your final score:</h1>
+        <h2 id="finalScore">300</h2>
+    </div>
     <script src="/static/mapLocations.js"></script>
     <script src="/static/resultmapLocations.js"></script>
     <script>
@@ -195,8 +260,11 @@
         let poimgInvisible = true;
         let mapEnabled = true;
         let isPlaying = false;
-        let numberofRounds = 3;
-        let currentRound = 0;
+        let numberofRounds = 2;
+        let currentRound = 1;
+
+
+        var finalScorePopup = document.querySelector('.finalScoreContainer');
 
         var numberofRoundsText = document.querySelector('.roundMarker #maxRound');
         numberofRoundsText.innerHTML = numberofRounds;
@@ -218,9 +286,15 @@
                 isPlaying = true;
 
                 setTimeout(function() {
-                    if(numberofRounds > 0){
-                    playGame();
-                    numberofRounds--;
+                    if(currentRound < numberofRounds){
+                        playGame();
+                        currentRound++;
+                        console.log(currentRound);
+                    }
+                    else if(numberofRounds >= numberofRounds) {
+                        var finalScore = document.querySelector('.finalScoreContainer #finalScore');
+                        finalScore.innerHTML = totalPoints;
+                        finalScorePopup.classList.add('active');
                     }
                     isPlaying = false;
                 }, 1000);
@@ -350,7 +424,6 @@
             var duration = 15;
             var resultPopup = false;
             let countdown;
-            currentRound++;
 
             function startTimer(duration) {
                 if (countdown) {
