@@ -25,11 +25,13 @@
     align-items: center;
     overflow: hidden;
   }
+
   .counter span {
   display: inline-block;
   opacity: 0;
   animation: fadeIn 1s ease-in-out 1;
   }
+
   @keyframes fadeIn {
    0% {
     opacity: 0;
@@ -53,7 +55,7 @@
    .gameTitle {
    font-size: 12px;
    position: absolute;
-   top: 835px;
+   top: 89%;
    background-color: black;
    padding: 15px;
    }
@@ -61,8 +63,8 @@
    .map-container {
    opacity: 0.3;
    position: absolute;
-   top: 495px;
-   left: 50px;
+   top: 51.5%;
+   left: 3%;
    }
 
    .map-container:hover {
@@ -92,8 +94,8 @@
    .timer-container {
    font-size: 25px;
    position: absolute;
-   top: 25px;
-   right: 75px;
+   top: 4%;
+   right: 4%;
    background-color: black;
    padding: 15px;
    }
@@ -109,8 +111,8 @@
         border-radius: 10px;
         font-family: "ValorantFont";
         position: absolute;
-        left: 130px;
-        bottom: 470px;
+        left: 7.5%;
+        bottom: 50%;
    }
 
    #lockIn {
@@ -152,7 +154,7 @@
    .roundMarker {
         position: absolute;
         top: 5%;
-        left: 67%;
+        left: 2%;
         font-size: 25px;
         background-color: black;
         padding: 15px;
@@ -601,9 +603,14 @@
                 console.log(chosenY);
 
                 pointerImage.style.position = "absolute";
+                var windowWidth = window.innerWidth;
+                var windowHeight = window.innerHeight;
 
-                pointerImage.style.left = chosenX - 975 + 'px';
-                pointerImage.style.top = chosenY - 170 + 'px';
+                var offsetX = windowWidth * 0.51;
+                var offsetY = windowHeight * 0.17;
+
+                pointerImage.style.left = chosenX - offsetX + 'px';
+                pointerImage.style.top = chosenY - offsetY + 'px';
                 }
             }
 
@@ -705,8 +712,8 @@
                 console.log(centerPointer.style.left);
                 console.log(centerPointer.style.top);
 
-                centerPointerXInContainer = centerPointer.offsetLeft;
-                centerPointerYInContainer = 755;
+                centerPointerXInContainer = centerPointer.offsetLeft - 5;
+                centerPointerYInContainer = 752;
 
                 console.log(centerPointer.offsetTop);
 

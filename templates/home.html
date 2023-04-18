@@ -37,7 +37,6 @@
 
   body {
     background-image: url("/static/img/MinimalAscent.jpg");
-    background-size: cover;
     background-repeat: no-repeat;
     font-family: "ValorantFont";
     overflow-x: hidden;
@@ -56,8 +55,9 @@
 
   .bn632-hover {
   position: absolute;
-  top: 250px;
-  right: 185px;
+  top: 90%;
+  left: 47%;
+  transform: translate(-50%, -60%);
   width: 300px;
   font-family: "ValorantFont";
   font-size: 35px;
@@ -249,9 +249,11 @@
         bgImageElements[visibleImageIndex].style.opacity = "0";
 
         bgImageElements[hiddenImageIndex].style.backgroundImage = "url(" + menuBGImages[index] + ")";
+        bgImageElements[hiddenImageIndex].style.backgroundSize = "cover";
 
         setTimeout(function() {
             bgImageElements[hiddenImageIndex].style.opacity = "1";
+            bgImageElements[hiddenImageIndex].style.backgroundSize = "cover";
         }, 500);
     }, 5000);
 
