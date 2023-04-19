@@ -102,7 +102,7 @@
     .btn {
         position: relative;
         top: 360px;
-        left: 1150px;
+        left: 965px;
         padding: 10px 60px;
         background: #fff;
         border: 0;
@@ -113,6 +113,77 @@
         border-radius: 30px;
         font-family: "ValorantFont";
         opacity: 0.8;
+    }
+
+      .bugbtn {
+        position: relative;
+        top: 360px;
+        left: 970px;
+        padding: 10px 60px;
+        background: #fff;
+        border: 0;
+        outline: none;
+        cursor: pointer;
+        font-size: 22px;
+        font-weight: 500;
+        border-radius: 30px;
+        font-family: "ValorantFont";
+        opacity: 0.8;
+    }
+
+    .bugpopup {
+        width: 800px;
+        height: 630px;
+        background: #EAEAEA;
+        border-radius: 6px;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -60%) scale(0.1);
+        text-align: center;
+        padding: 0 30px 30px;
+        color: #000;
+        visibility: hidden;
+        transition: transform 0.4s, top 0.4s;
+    }
+
+     .bugpopup img {
+        width: 100px;
+        margin-top: -50px;
+        border-radius: 50%;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .bugpopup h2 {
+        font-size: 60px;
+        font-weight: 500;
+        margin: 30px 0 5px;
+        color: #000;
+    }
+
+    .bugpopup button {
+        width: 100%;
+        margin-top: -40px;
+        padding: 10px 0;
+        background: #000000;
+        color: #fff;
+        border: 0;
+        outline: none;
+        font-size: 18px;
+        border-radius: 4px;
+        cursor: pointer;
+        font-family: "ValorantFont";
+        box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .bugopen-popup {
+        visibility: visible;
+        top: 50%;
+        transform: translate(-50%, -45%) scale(1);
+    }
+
+    .bugpopup p {
+        font-size: 20px;
     }
 
     .popup {
@@ -206,6 +277,7 @@
       <h1>ValorGuessr</h1>
         <a href="/about"><button class="bn632-hover bn28">Get Started</button></a>
         <button type="submit" class="btn" onclick="openPopup()">Info</button>
+        <button type="submit" class="bugbtn" onclick="openBugPopup()">Bugs?</button>
         <div class="popup">
             <img src="/static/infoIcon.png" style="width: 200px;height:auto;">
             <h2>Information</h2>
@@ -219,8 +291,22 @@
                 <br> <br> Have fun locating! - Charles</p>
             <button type="button" onclick="closePopup()">Got it!</button>
         </div>
+        <div class="bugpopup">
+            <img src="/static/BugIcon.png" style="width: 200px;height:auto;">
+            <h2>Bugs/Issues</h2>
+            <p>Common bug #1: Objects are distorted due to browser size. To fix this,
+                please ensure that your browser is maximized.
+                Additionally, if you are using Microsoft Edge, it has a taskbar on the
+                side that will affect the appearance. Please disable
+                this for ValorGuessr. Also note that resolving this issue as best as possible is a work in progress.
+            <br> <br> Common bug #2: Chosen location (black pointer) isn't accurate. If your browser is maximized and
+                you are still having this issue, unfortunately there is nothing you can do at the moment as it is being
+                fixed right now. Please be patient with it!
+                <br> <br> Thanks for understanding and have fun locating!</p>
+            <button type="bugbutton" onclick="closeBugPopup()">Got it!</button>
+        </div>
         <div class="version">
-            <h1>1.1</h1>
+            <h1>1.2</h1>
         </div>
     </div>
     </div>
@@ -259,13 +345,32 @@
 
     let popup = document.querySelector('.titleText .popup');
     console.log(popup);
+    let onePopupOpened = false;
 
     function openPopup() {
+        if(!onePopupOpened){
         popup.classList.add("open-popup");
+        onePopupOpened = true;
+        }
     }
 
     function closePopup() {
         popup.classList.remove("open-popup");
+        onePopupOpened = false;
+    }
+
+    let bugpopup = document.querySelector('.titleText .bugpopup');
+
+    function openBugPopup() {
+        if(!onePopupOpened){
+        bugpopup.classList.add("bugopen-popup");
+        onePopupOpened = true;
+        }
+    }
+
+    function closeBugPopup() {
+        bugpopup.classList.remove("bugopen-popup");
+        onePopupOpened = false;
     }
 
     </script>
